@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Student Productivity Hub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f9ff;
+        }
+        header {
+            background-color: #1e88e5;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            background: #1565c0;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .dark-toggle {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        /* Burger icon */
+        .burger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 12px;
+        }
+        .burger div {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 4px 0;
+        }
+        /* Responsive menu */
+        @media (max-width: 768px) {
+            nav a {
+                display: none;
+                width: 100%;
+                text-align: center;
+                padding: 10px 0;
+                background: #1565c0;
+                border-top: 1px solid rgba(255,255,255,0.2);
+            }
+            nav.active a {
+                display: block;
+            }
+            .burger {
+                display: flex;
+            }
+            .dark-toggle {
+                position: absolute;
+                right: 60px;
+                top: 8px;
+            }
+        }
+
+        main {
+            max-width: 700px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+        h2 {
+            color: #1e88e5;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input, textarea {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #1e88e5;
+            color: white;
+            padding: 10px;
+            border: none;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1565c0;
+        }
+        footer {
+            background: #1565c0;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Contact Us</h1>
+        <p>We’d love to hear from you</p>
+    </header>
+
+    <nav id="navbar">
+        <a href="index.html">Home</a>
+        <a href="timer.html">Timer</a>
+        <a href="planner.html">Planner</a>
+        <a href="notes.html">Notes</a>
+        <a href="progress.html">Progress</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="contact.html">Contact</a>
+        <button class="dark-toggle" onclick="toggleDarkMode()">🌙</button>
+        <div class="burger" id="burger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </nav>
+
+    <main>
+        <h2>Send us a message</h2>
+        <form>
+            <input type="text" placeholder="Your Name" required>
+            <input type="email" placeholder="Your Email" required>
+            <textarea rows="5" placeholder="Your Message" required></textarea>
+            <button type="submit">Send</button>
+        </form>
+    </main>
+
+    <footer>
+        &copy; 2025 Student Productivity Hub. All Rights Reserved.
+    </footer>
+
+    <script>
+        // Burger menu toggle
+        const burger = document.getElementById('burger');
+        const navbar = document.getElementById('navbar');
+        burger.addEventListener('click', () => {
+            navbar.classList.toggle('active');
+        });
+
+        // Dark mode toggle
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark');
+        }
+    </script>
+</body>
+</html>

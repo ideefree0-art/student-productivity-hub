@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>📝 Notes | StudyHub</title>
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --text: #333;
+      --note-bg: white;
+      --navbar-bg: #0d6efd;
+      --button-bg: #0d6efd;
+      --button-hover: #084298;
+      --input-border: #ccc;
+      --shadow: rgba(0, 0, 0, 0.1);
+    }
+    body.dark-mode {
+      --bg: #121212;
+      --text: #e0e0e0;
+      --note-bg: #1e1e1e;
+      --navbar-bg: #1f1f1f;
+      --button-bg: #333;
+      --button-hover: #555;
+      --input-border: #444;
+      --shadow: rgba(255, 255, 255, 0.05);
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* ========= NAVBAR ========= */
+    .navbar {
+      background-color: var(--navbar-bg);
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 10px var(--shadow);
+      position: relative;
+    }
+    .navbar .logo {
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+    }
+    .nav-links a.active {
+      text-decoration: underline;
+    }
+    /* Dark Mode Button */
+    .dark-toggle {
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+      padding: 0.4rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    /* Burger Menu Icon */
+    .burger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+    .burger div {
+      width: 25px;
+      height: 3px;
+      background: white;
+    }
+
+    /* ========= RESPONSIVE NAV ========= */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: var(--navbar-bg);
+        padding: 1rem 0;
+      }
+      .nav-links.show {
+        display: flex;
+      }
+      .burger {
+        display: flex;
+      }
+    }
+
+    /* ========= MAIN CONTAINER ========= */
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+    .note-input {
+      background: var(--note-bg);
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px var(--shadow);
+      margin-bottom: 2rem;
+    }
+    .note-input input,
+    .note-input textarea,
+    .note-input select {
+      width: 100%;
+      margin: 0.5rem 0;
+      padding: 0.7rem;
+      border: 1px solid var(--input-border);
+      border-radius: 6px;
+      font-size: 1rem;
+      background: inherit;
+      color: inherit;
+    }
+    .note-input button {
+      background-color: var(--button-bg);
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .note-input button:hover {
+      background-color: var(--button-hover);
+    }
+    .search-bar {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .search-bar input,
+    .search-bar select {
+      flex: 1;
+      padding: 0.6rem;
+      border-radius: 6px;
+      border: 1px solid var(--input-border);
+      background: inherit;
+      color: inherit;
+    }
+    .notes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    .note {
+      background: var(--note-bg);
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px var(--shadow);
+      position: relative;
+      transition: transform 0.2s;
+    }
+    .note:hover {
+      transform: scale(1.02);
+    }
+    .note.pinned {
+      border: 2px solid gold;
+    }
+    .note .note-title {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .note .note-tag {
+      display: inline-block;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.8rem;
+      border-radius: 5px;
+      color: white;
+      margin-top: 0.5rem;
+    }
+    .note .note-actions {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      gap: 0.5rem;
+    }
+    .note-actions button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      color: inherit;
+    }
+    .note-actions .pin { color: goldenrod; }
+    .note-actions .delete { color: red; }
+    .note-actions .export { color: green; }
+    @media (max-width: 600px) {
+      .search-bar { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo">🎓 StudyHub</div>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="timer.html">Timer</a>
+      <a href="planner.html">Planner</a>
+      <a href="notes.html" class="active">Notes</a>
+      <a href="progress.html">Progress</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="contact.html">Contact</a>
+      <button class="dark-toggle" onclick="toggleDarkMode()">🌙</button>
+    </nav>
+    <div class="burger" id="burgerMenu">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <div class="container">
+    <div class="note-input">
+      <input type="text" id="title" placeholder="Note title..." />
+      <textarea id="content" rows="3" placeholder="Note content..."></textarea>
+      <select id="tag">
+        <option value="">Choose tag color</option>
+        <option value="blue">Study</option>
+        <option value="green">Personal</option>
+        <option value="orange">Important</option>
+        <option value="purple">Creative</option>
+      </select>
+      <button onclick="addNote()">Add Note</button>
+    </div>
+
+    <div class="search-bar">
+      <input type="text" id="search" placeholder="Search notes..." oninput="filterNotes()" />
+      <select id="tagFilter" onchange="filterNotes()">
+        <option value="">Filter by tag</option>
+        <option value="blue">Study</option>
+        <option value="green">Personal</option>
+        <option value="orange">Important</option>
+        <option value="purple">Creative</option>
+      </select>
+    </div>
+
+    <div class="notes-grid" id="notesContainer"></div>
+  </div>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    const notesContainer = document.getElementById('notesContainer');
+    const searchInput = document.getElementById('search');
+    const tagFilter = document.getElementById('tagFilter');
+    const burgerMenu = document.getElementById('burgerMenu');
+    const navLinks = document.getElementById('navLinks');
+
+    let notes = JSON.parse(localStorage.getItem('notes') || '[]');
+
+    burgerMenu.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+
+    function saveNotes() {
+      localStorage.setItem('notes', JSON.stringify(notes));
+    }
+    function addNote() {
+      const title = document.getElementById('title').value.trim();
+      const content = document.getElementById('content').value.trim();
+      const tag = document.getElementById('tag').value;
+      if (!title || !content || !tag) return alert("Please fill all fields!");
+      const note = { id: Date.now(), title, content, tag, pinned: false };
+      notes.unshift(note);
+      saveNotes();
+      renderNotes();
+      document.getElementById('title').value = '';
+      document.getElementById('content').value = '';
+      document.getElementById('tag').value = '';
+    }
+    function renderNotes() {
+      notesContainer.innerHTML = "";
+      const filtered = notes.filter(note =>
+        (note.title + note.content).toLowerCase().includes(searchInput.value.toLowerCase()) &&
+        (tagFilter.value === "" || note.tag === tagFilter.value)
+      );
+      const sorted = filtered.sort((a, b) => b.pinned - a.pinned);
+      for (let note of sorted) {
+        const div = document.createElement('div');
+        div.className = `note ${note.pinned ? "pinned" : ""}`;
+        div.innerHTML = `
+          <div class="note-title">${note.title}</div>
+          <div>${note.content}</div>
+          <div class="note-tag" style="background:${note.tag}">${note.tag.toUpperCase()}</div>
+          <div class="note-actions">
+            <button class="pin" onclick="togglePin(${note.id})">📌</button>
+            <button class="delete" onclick="deleteNote(${note.id})">🗑️</button>
+            <button class="export" onclick="exportNote(${note.id})">📤</button>
+          </div>
+        `;
+        notesContainer.appendChild(div);
+      }
+    }
+    function togglePin(id) {
+      const note = notes.find(n => n.id === id);
+      note.pinned = !note.pinned;
+      saveNotes();
+      renderNotes();
+    }
+    function deleteNote(id) {
+      notes = notes.filter(n => n.id !== id);
+      saveNotes();
+      renderNotes();
+    }
+    function exportNote(id) {
+      const note = notes.find(n => n.id === id);
+      const blob = new Blob([`Title: ${note.title}\n\n${note.content}`], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${note.title}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+    function filterNotes() {
+      renderNotes();
+    }
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+    }
+    window.onload = function () {
+      if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+      }
+      renderNotes();
+    };
+  </script>
+</body>
+</html>

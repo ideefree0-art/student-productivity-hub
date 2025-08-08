@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Productivity Planner</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f6f8;
+      color: #333;
+      transition: background 0.3s, color 0.3s;
+    }
+    body.dark {
+      background: #121212;
+      color: #f1f1f1;
+    }
+    body.dark .container {
+      background: #1e1e1e;
+      box-shadow: 0 0 15px rgba(255,255,255,0.05);
+    }
+    body.dark .navbar {
+      background: #1a1a1a;
+      color: white;
+    }
+    body.dark .nav-links a {
+      color: white;
+    }
+    body.dark .nav-links a.active,
+    body.dark .nav-links a:hover {
+      background: white;
+      color: #0d6efd;
+    }
+    body.dark ul#taskList li {
+      background: #2c2c2c;
+    }
+    body.dark #taskInput {
+      background: #2c2c2c;
+      color: white;
+      border: 1px solid #555;
+    }
+    body.dark .reward {
+      color: #90ee90;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #0d6efd;
+      color: white;
+      padding: 1rem 2rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      padding: 6px 10px;
+      border-radius: 5px;
+      font-weight: 500;
+    }
+    .nav-links a.active,
+    .nav-links a:hover {
+      background: white;
+      color: #0d6efd;
+    }
+    .toggle-dark {
+      background: white;
+      color: #0d6efd;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    body.dark .toggle-dark {
+      background: #333;
+      color: white;
+    }
+
+    /* Burger Menu */
+    .burger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+    .burger div {
+      width: 25px;
+      height: 3px;
+      background: white;
+      transition: all 0.3s ease;
+    }
+
+    /* Container */
+    .container {
+      max-width: 600px;
+      margin: 3rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #0d6efd;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Input group */
+    .input-group {
+      display: flex;
+      margin-bottom: 1rem;
+    }
+    #taskInput {
+      flex: 1;
+      padding: 0.7rem;
+      border: 1px solid #ccc;
+      border-radius: 6px 0 0 6px;
+      font-size: 1rem;
+    }
+    button.add-btn {
+      padding: 0.7rem 1.2rem;
+      border: none;
+      background: #0d6efd;
+      color: white;
+      font-weight: bold;
+      border-radius: 0 6px 6px 0;
+      cursor: pointer;
+    }
+    button.add-btn:hover {
+      background: #084298;
+    }
+
+    /* Task list */
+    ul#taskList {
+      list-style: none;
+      padding: 0;
+    }
+    ul#taskList li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #e9ecef;
+      padding: 0.7rem 1rem;
+      margin: 0.5rem 0;
+      border-radius: 6px;
+    }
+    ul#taskList li.completed span {
+      text-decoration: line-through;
+      color: gray;
+    }
+    ul#taskList small {
+      margin-left: 1rem;
+      color: green;
+      font-size: 0.9rem;
+    }
+    .done-btn {
+      color: green;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .delete-btn {
+      color: red;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    .reward {
+      margin-top: 1rem;
+      text-align: center;
+      font-size: 1.1rem;
+      color: #198754;
+      font-weight: bold;
+    }
+
+    /* Responsive */
+    @media screen and (max-width: 768px) {
+      .burger {
+        display: flex;
+      }
+      .nav-links {
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background: #0d6efd;
+        width: 200px;
+        padding: 1rem;
+        display: none;
+      }
+      .nav-links.active {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">🎓 StudyHub</div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="timer.html">Timer</a>
+      <a href="planner.html" class="active">Planner</a>
+      <a href="notes.html">Notes</a>
+      <a href="progress.html">Progress</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="contact.html">Contact</a>
+      <button class="toggle-dark" onclick="toggleDarkMode()">🌓</button>
+    </nav>
+    <div class="burger" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <h2>📘 Daily Planner</h2>
+    <div class="input-group">
+      <input type="text" id="taskInput" placeholder="Enter your task...">
+      <button class="add-btn" onclick="addTask()">Add</button>
+    </div>
+    <ul id="taskList"></ul>
+    <div class="reward" id="rewardCount">🎁 Completed Tasks: 0</div>
+  </div>
+
+  <script>
+    const input = document.getElementById("taskInput");
+    const taskList = document.getElementById("taskList");
+    const rewardDisplay = document.getElementById("rewardCount");
+    let rewardCount = 0;
+
+    window.onload = function () {
+      const saved = JSON.parse(localStorage.getItem("tasks")) || [];
+      saved.forEach(task => createTask(task.text, task.completed));
+      if (localStorage.getItem("theme") === "dark") {
+        document.body.classList.add("dark");
+      }
+    };
+
+    function addTask() {
+      const taskText = input.value.trim();
+      if (taskText === "") return;
+      createTask(taskText);
+      input.value = "";
+    }
+
+    function createTask(text, completed = false) {
+      const li = document.createElement("li");
+      const span = document.createElement("span");
+      span.textContent = text;
+      const doneBtn = document.createElement("button");
+      doneBtn.textContent = "✔";
+      doneBtn.className = "done-btn";
+      doneBtn.onclick = () => toggleComplete(li);
+      const deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "✖";
+      deleteBtn.className = "delete-btn";
+      deleteBtn.onclick = () => deleteTask(li);
+      const doneMsg = document.createElement("small");
+      doneMsg.textContent = "🎯 Task Completed!";
+      doneMsg.style.display = completed ? "inline" : "none";
+
+      if (completed) {
+        li.classList.add("completed");
+        rewardCount++;
+        updateReward();
+      }
+
+      li.append(span, doneBtn, deleteBtn, doneMsg);
+      taskList.appendChild(li);
+      saveTasks();
+    }
+
+    function toggleComplete(li) {
+      const doneMsg = li.querySelector("small");
+      li.classList.toggle("completed");
+      const completed = li.classList.contains("completed");
+      doneMsg.style.display = completed ? "inline" : "none";
+      rewardCount += completed ? 1 : -1;
+      updateReward();
+      saveTasks();
+    }
+
+    function deleteTask(li) {
+      if (li.classList.contains("completed")) rewardCount--;
+      li.remove();
+      updateReward();
+      saveTasks();
+    }
+
+    function updateReward() {
+      rewardDisplay.textContent = `🎁 Completed Tasks: ${rewardCount}`;
+    }
+
+    function saveTasks() {
+      const tasks = [];
+      taskList.querySelectorAll("li").forEach(li => {
+        tasks.push({
+          text: li.querySelector("span").innerText,
+          completed: li.classList.contains("completed")
+        });
+      });
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark");
+      localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
+    }
+
+    function toggleMenu() {
+      document.querySelector(".nav-links").classList.toggle("active");
+    }
+  </script>
+</body>
+</html>

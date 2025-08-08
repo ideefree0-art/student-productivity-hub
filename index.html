@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Productivity Hub</title>
+  <style>
+    /* ========== BASIC STYLES ========== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    body {
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    .navbar {
+      background-color: #4a90e2;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .nav-links a.active {
+      text-decoration: underline;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 5rem 2rem;
+      background: #e6f0ff;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+    }
+
+    .hero-buttons {
+      margin-top: 1.5rem;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      margin: 0 10px;
+      background: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    .btn.secondary {
+      background: #555;
+    }
+
+    .features {
+      padding: 4rem 2rem;
+      background: #f9f9f9;
+    }
+
+    .features h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .feature-boxes {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .box {
+      flex: 1 1 200px;
+      background: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      background: #4a90e2;
+      color: white;
+    }
+
+    /* ========== DARK MODE STYLES ========== */
+    body.dark-mode {
+      background-color: #121212;
+      color: #ddd;
+    }
+
+    body.dark-mode .navbar {
+      background-color: #222;
+    }
+
+    body.dark-mode .nav-links a {
+      color: #fff;
+    }
+
+    body.dark-mode .hero {
+      background: #1e1e1e;
+    }
+
+    body.dark-mode .btn {
+      background: #2196f3;
+    }
+
+    body.dark-mode .btn.secondary {
+      background: #777;
+    }
+
+    body.dark-mode .features {
+      background: #1b1b1b;
+    }
+
+    body.dark-mode .box {
+      background: #2a2a2a;
+      color: #ddd;
+    }
+
+    body.dark-mode .footer {
+      background: #222;
+      color: #bbb;
+    }
+
+    /* Dark mode toggle button */
+    .dark-toggle {
+      background: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      margin-left: 20px;
+      color: #333;
+    }
+
+    body.dark-mode .dark-toggle {
+      background: #444;
+      color: #fff;
+    }
+
+    /* Burger Menu Styles */
+    .burger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .burger div {
+      width: 25px;
+      height: 3px;
+      background: white;
+      margin: 4px;
+      transition: 0.3s;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background: #4a90e2;
+        width: 100%;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        padding: 1rem 0;
+      }
+
+      .nav-links a {
+        margin: 10px 0;
+        text-align: center;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .burger {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <header class="navbar">
+    <div class="logo">🎓 StudyHub</div>
+
+    <div class="burger" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html" class="active">Home</a>
+      <a href="timer.html">Timer</a>
+      <a href="planner.html">Planner</a>
+      <a href="notes.html">Notes</a>
+      <a href="progress.html">Progress</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="contact.html">Contact</a>
+      <button class="dark-toggle" onclick="toggleDarkMode()">🌙</button>
+    </nav>
+  </header>
+
+  <!-- ========== HERO SECTION ========== -->
+  <section class="hero">
+    <h1>Welcome to StudyHub</h1>
+    <p>Your ultimate companion for focused, productive, and successful study sessions!</p>
+    <div class="hero-buttons">
+      <a href="planner.html" class="btn">Plan Now</a>
+      <a href="timer.html" class="btn secondary">Start Timer</a>
+    </div>
+  </section>
+
+  <!-- ========== FEATURES PREVIEW ========== -->
+  <section class="features">
+    <h2>Features</h2>
+    <div class="feature-boxes">
+      <div class="box">
+        <h3>⏱️ Pomodoro Timer</h3>
+        <p>Stay focused using the 25/5 productivity method.</p>
+      </div>
+      <div class="box">
+        <h3>📅 Study Planner</h3>
+        <p>Organize your tasks day-wise for a clear routine.</p>
+      </div>
+      <div class="box">
+        <h3>📝 Quick Notes</h3>
+        <p>Jot down important concepts & reminders anytime.</p>
+      </div>
+      <div class="box">
+        <h3>📊 Progress Tracker</h3>
+        <p>Track your study hours and weekly growth.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <p>© 2025 StudyHub | Built by Muhammad Talha</p>
+    <p>Follow your dream, stay focused 💯</p>
+  </footer>
+
+  <!-- ========== DARK MODE + BURGER MENU SCRIPT ========== -->
+  <script>
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+      localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
+    }
+
+    function toggleMenu() {
+      document.getElementById("navLinks").classList.toggle("show");
+    }
+
+    window.onload = function () {
+      const isDark = JSON.parse(localStorage.getItem("darkMode"));
+      if (isDark) {
+        document.body.classList.add("dark-mode");
+      }
+    }
+  </script>
+
+</body>
+</html>

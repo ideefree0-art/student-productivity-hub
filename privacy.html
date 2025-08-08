@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Privacy Policy - Student Productivity Hub</title>
+  <style>
+    :root{
+      --blue-600:#1e88e5;
+      --blue-700:#1565c0;
+      --bg:#f4f9ff;
+      --card:#ffffff;
+      --text:#222;
+      --muted:#6b7280;
+      --radius:10px;
+      --maxw:960px;
+      --transition: all 0.25s ease;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.6;
+    }
+
+    /* Header + Nav */
+    header {
+      background: var(--blue-600);
+      color: #fff;
+      padding: 20px 16px;
+      text-align: center;
+    }
+    header h1{margin:0; font-size:22px; letter-spacing:0.2px}
+    header p{margin:6px 0 0; opacity:0.95; font-size:14px}
+
+    nav.top-nav {
+      background: var(--blue-700);
+      padding: 10px 16px;
+      display:flex;
+      justify-content:center;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+    nav.top-nav a{
+      color: #fff;
+      text-decoration:none;
+      font-weight:700;
+      padding:8px 12px;
+      border-radius:6px;
+      transition: var(--transition);
+    }
+    nav.top-nav a:hover{
+      background: rgba(255,255,255,0.08);
+      transform:translateY(-2px);
+    }
+
+    /* Burger menu button (hidden on desktop) */
+    .menu-toggle {
+      display:none;
+      background:none;
+      border:none;
+      font-size:24px;
+      color:white;
+      cursor:pointer;
+    }
+
+    /* Mobile nav hidden initially */
+    .nav-links {
+      display:flex;
+      flex-wrap:wrap;
+      gap:18px;
+      align-items:center;
+    }
+
+    /* Main container */
+    main.container{
+      max-width: var(--maxw);
+      margin: 28px auto;
+      padding: 22px;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: 0 6px 18px rgba(18,38,63,0.06);
+      padding: 22px;
+      margin-bottom:18px;
+      transition: var(--transition);
+    }
+
+    .kicker {
+      display:inline-block;
+      background: linear-gradient(90deg,var(--blue-600),var(--blue-700));
+      color:white;
+      padding:6px 12px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:13px;
+      margin-bottom:12px;
+    }
+
+    h2 { color: var(--blue-700); margin-bottom:10px; font-size:20px; }
+    h3 { margin-top:18px; color: #0f1724; }
+    p{ color:var(--text); margin:10px 0; font-size:15px; }
+    ul{ margin-left:18px; margin-top:6px; color:var(--muted) }
+    li{ margin:8px 0; }
+
+    /* Accordion */
+    .accordion-item { margin-top:12px; border-radius:8px; overflow:hidden; border:1px solid rgba(0,0,0,0.05); }
+    .accordion-btn {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 14px; width:100%; background:transparent; border:none; cursor:pointer;
+      font-weight:700; font-size:15px;
+    }
+    .accordion-btn:hover { background: rgba(0,0,0,0.02); }
+    .accordion-panel { padding:0 14px 14px; max-height:0; overflow:hidden; transition:max-height 0.32s ease; color:var(--muted) }
+    .accordion-open .accordion-panel { max-height: 800px; }
+
+    /* Footer */
+    footer.site-footer {
+      text-align:center;
+      padding:18px;
+      background: var(--blue-700);
+      color: #fff;
+      margin-top:28px;
+    }
+    footer.site-footer a { color: #ffeccf; text-decoration: none; font-weight:700; }
+
+    /* Responsive */
+    @media (max-width:720px){
+      header h1{ font-size:18px }
+      .menu-toggle { display:block; }
+      .nav-links {
+        display:none;
+        flex-direction:column;
+        width:100%;
+        margin-top:10px;
+      }
+      .nav-links.show {
+        display:flex;
+      }
+      nav.top-nav {
+        flex-direction:column;
+        align-items:flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Student Productivity Hub</h1>
+    <p>Your study companion — privacy-first and student-focused.</p>
+  </header>
+
+  <nav class="top-nav" aria-label="Main navigation">
+    <button class="menu-toggle" aria-label="Toggle Menu">☰</button>
+    <div class="nav-links">
+      <a href="index.html" class="active">Home</a>
+      <a href="timer.html">Timer</a>
+      <a href="planner.html">Planner</a>
+      <a href="notes.html">Notes</a>
+      <a href="progress.html">Progress</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="contact.html">Contact</a>
+      <button class="dark-toggle" onclick="toggleDarkMode()">🌙</button>
+    </div>
+  </nav>
+    <main class="container" id="main">
+  <div class="card">
+    <span class="kicker">Privacy Policy</span>
+    <h2>Your Privacy Matters</h2>
+    <p>
+      At <strong>Student Productivity Hub</strong>, we are committed to protecting your personal
+      information and your right to privacy. If you have any questions or concerns about this privacy notice
+      or our practices with regard to your personal information, please contact us at 
+      <a href="mailto:contact@studenthub.com">contact@studenthub.com</a>.
+    </p>
+
+    <h3>1. Information We Collect</h3>
+    <p>We may collect personal information that you voluntarily provide to us when you register, use our
+       services, or contact us. This can include:</p>
+    <ul>
+      <li>Name and email address</li>
+      <li>Account login details</li>
+      <li>Any messages or files you submit through our tools</li>
+    </ul>
+
+    <h3>2. How We Use Your Information</h3>
+    <p>We use your information to:</p>
+    <ul>
+      <li>Provide, operate, and maintain our website and services</li>
+      <li>Improve, personalize, and expand our offerings</li>
+      <li>Communicate with you regarding updates, security alerts, and support</li>
+      <li>Show personalized content and advertisements (where applicable)</li>
+    </ul>
+
+    <h3>3. Cookies & Tracking Technologies</h3>
+    <p>
+      We use cookies and similar tracking technologies to access or store information. These are used to
+      improve user experience, analyze site traffic, and serve relevant ads. You can disable cookies in your
+      browser settings, but some features may not function properly.
+    </p>
+
+    <h3>4. Third-Party Services</h3>
+    <p>
+      We may use third-party advertising companies (such as Google AdSense) to serve ads when you visit our
+      site. These companies may use information about your visits to this and other websites in order to
+      provide advertisements about goods and services of interest to you.
+    </p>
+
+    <h3>5. Data Security</h3>
+    <p>
+      We implement industry-standard technical and organizational measures to protect your personal
+      information. However, no electronic transmission over the Internet can be guaranteed to be 100% secure.
+    </p>
+
+    <h3>6. Your Privacy Rights</h3>
+    <p>Depending on your location, you may have the following rights:</p>
+    <ul>
+      <li>Access to the personal data we hold about you</li>
+      <li>Request correction or deletion of your data</li>
+      <li>Opt-out of targeted advertising</li>
+    </ul>
+
+    <h3>7. Updates to This Policy</h3>
+    <p>
+      We may update this privacy policy from time to time. The updated version will be indicated by an
+      updated "Last Updated" date and will be effective as soon as it is accessible.
+    </p>
+
+    <h3>8. Contact Us</h3>
+    <p>
+      If you have questions or comments about this policy, you may contact us at:<br>
+      Email: <a href="mailto:contact@studenthub.com">contact@studenthub.com</a><br>
+      Address: 123 Student Lane, Education City, ED 45678
+    </p>
+
+    <p><em>Last Updated: August 8, 2025</em></p>
+  </div>
+</main>
+
+  
+
+  <footer class="site-footer" role="contentinfo">
+    <div style="max-width:var(--maxw); margin:auto">
+      <div style="margin-bottom:8px;"><strong>Student Productivity Hub</strong></div>
+      <div style="font-size:14px; opacity:0.9;">© 2025 Student Productivity Hub • Designed for students</div>
+      <div style="margin-top:10px;"><a href="terms.html">Terms</a> • <a href="contact.html">Contact</a></div>
+    </div>
+  </footer>
+
+  <script>
+    // Burger menu toggle
+    document.querySelector('.menu-toggle').addEventListener('click', function(){
+      document.querySelector('.nav-links').classList.toggle('show');
+    });
+
+    // Accordion
+    document.querySelectorAll('.accordion-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const parent = btn.closest('.accordion-item');
+        parent.classList.toggle('accordion-open');
+      });
+    });
+  </script>
+</body>
+</html>

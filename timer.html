@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pomodoro Timer | StudyHub</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: #f0f4ff;
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: #004aad;
+      color: white;
+      position: relative;
+    }
+
+    .navbar .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-links a {
+      margin-left: 1rem;
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .nav-links a.active {
+      border-bottom: 2px solid white;
+    }
+
+    .toggle-darkmode {
+      background: none;
+      border: 1px solid white;
+      padding: 5px 10px;
+      margin-left: 1rem;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    /* ===== Hamburger Menu ===== */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .hamburger span {
+      height: 3px;
+      width: 25px;
+      background: white;
+      margin: 4px 0;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 200px;
+        background: #004aad;
+        padding: 1rem;
+        border-radius: 0 0 10px 10px;
+      }
+
+      .nav-links a {
+        margin: 0.8rem 0;
+        display: block;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+
+    /* ===== Rest of your styles ===== */
+    .dark-mode {
+      background: #1e1e1e;
+      color: #f0f0f0;
+    }
+
+    .dark-mode .navbar {
+      background: #111;
+    }
+
+    .dark-mode .nav-links a.active {
+      border-bottom: 2px solid #fff;
+    }
+
+    .dark-mode .controls button {
+      background: #222;
+      color: white;
+    }
+
+    .dark-mode .controls button:hover {
+      background: #333;
+    }
+
+    .timer-section {
+      flex-grow: 1;
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .timer-section h1 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .circle-timer {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      margin: 2rem auto;
+    }
+
+    .circle-timer svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+
+    .circle-timer circle {
+      fill: none;
+      stroke-width: 12;
+      stroke-linecap: round;
+    }
+
+    .circle-timer circle:first-child {
+      stroke: #ddd;
+    }
+
+    #progress {
+      stroke: #004aad;
+      stroke-dasharray: 502;
+      stroke-dashoffset: 0;
+      transition: stroke-dashoffset 1s linear;
+    }
+
+    .time {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .controls {
+      margin: 2rem auto;
+    }
+
+    .controls button {
+      padding: 0.6rem 1.5rem;
+      margin: 0 0.5rem;
+      border: none;
+      border-radius: 25px;
+      font-size: 1rem;
+      background: #004aad;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .controls button:hover {
+      background: #00308f;
+    }
+
+    .session-info {
+      margin-top: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .quote-box {
+      margin-top: 2rem;
+      font-style: italic;
+      color: #555;
+      font-size: 1rem;
+    }
+
+    .dark-mode .quote-box {
+      color: #ccc;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 1rem;
+      background: #004aad;
+      color: white;
+      font-size: 0.9rem;
+    }
+
+    .dark-mode .footer {
+      background: #111;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">🎓 StudyHub</div>
+
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="timer.html" class="active">Timer</a>
+      <a href="planner.html">Planner</a>
+      <a href="notes.html">Notes</a>
+      <a href="progress.html">Progress</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="contact.html">Contact</a>
+      <button class="toggle-darkmode" onclick="toggleDarkMode()">🌙</button>
+    </nav>
+  </header>
+
+  <!-- Timer Section -->
+  <section class="timer-section">
+    <h1>Stay Focused & Crush It!</h1>
+
+    <div class="circle-timer">
+      <svg>
+        <circle cx="90" cy="90" r="80"></circle>
+        <circle cx="90" cy="90" r="80" id="progress"></circle>
+      </svg>
+      <div class="time" id="time">25:00</div>
+    </div>
+
+    <div class="controls">
+      <button onclick="startTimer()">Start</button>
+      <button onclick="pauseTimer()">Pause</button>
+      <button onclick="resetTimer()">Reset</button>
+    </div>
+
+    <div class="session-info">
+      <p><strong>Sessions Completed:</strong> <span id="sessionCount">0</span></p>
+    </div>
+
+    <div class="quote-box">
+      <p id="quote">“Push yourself, because no one else is going to do it for you.”</p>
+    </div>
+  </section>
+
+  <!-- Audio Song Element -->
+  <audio id="focusSong" src="song.mp3" preload="auto"></audio>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 StudyHub | Made by Muhammad Talha</p>
+    <p>Keep growing, keep grinding 💪</p>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // ===== Hamburger Menu =====
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+
+    // ===== Pomodoro Timer =====
+    let time = 1500;
+    let timer;
+    let isRunning = false;
+    let sessions = 0;
+
+    const timeDisplay = document.getElementById('time');
+    const sessionDisplay = document.getElementById('sessionCount');
+    const progressCircle = document.getElementById('progress');
+    const quoteDisplay = document.getElementById('quote');
+    const focusSong = document.getElementById('focusSong');
+
+    const totalLength = 2 * Math.PI * 80;
+    progressCircle.style.strokeDasharray = totalLength;
+
+    const quotes = [
+      "“Don’t watch the clock; do what it does. Keep going.”",
+      "“Success is the sum of small efforts, repeated.”",
+      "“It’s not about having time. It’s about making time.”",
+      "“Push yourself, because no one else will do it for you.”",
+      "“Stay focused and never give up.”"
+    ];
+
+    function updateDisplay() {
+      let minutes = Math.floor(time / 60);
+      let seconds = time % 60;
+      timeDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      let offset = totalLength - (time / 1500) * totalLength;
+      progressCircle.style.strokeDashoffset = offset;
+    }
+
+    function startTimer() {
+      if (!isRunning) {
+        timer = setInterval(() => {
+          if (time > 0) {
+            time--;
+            updateDisplay();
+          } else {
+            clearInterval(timer);
+            isRunning = false;
+            sessions++;
+            sessionDisplay.textContent = sessions;
+            time = 1500;
+            showQuote();
+            updateDisplay();
+          }
+        }, 1000);
+        isRunning = true;
+      }
+    }
+
+    function pauseTimer() {
+      clearInterval(timer);
+      isRunning = false;
+    }
+
+    function resetTimer() {
+      clearInterval(timer);
+      isRunning = false;
+      time = 1500;
+      updateDisplay();
+    }
+
+    function showQuote() {
+      const random = Math.floor(Math.random() * quotes.length);
+      quoteDisplay.textContent = quotes[random];
+      if (focusSong) focusSong.play();
+      const msg = new SpeechSynthesisUtterance("Shabash! Tumhara Pomodoro session complete hogaya hai. Ab break lo.");
+      window.speechSynthesis.speak(msg);
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', document.body.classList.contains('dark-mode') ? 'enabled' : 'disabled');
+    }
+
+    window.onload = () => {
+      if (localStorage.getItem('darkMode') === 'enabled') {
+        document.body.classList.add('dark-mode');
+      }
+      updateDisplay();
+    };
+  </script>
+</body>
+</html>

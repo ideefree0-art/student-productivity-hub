@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Student Productivity Hub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f9ff;
+            color: #333;
+        }
+        header {
+            background-color: #1e88e5;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        nav {
+            background: #1565c0;
+            padding: 10px;
+            text-align: center;
+            position: relative;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .menu-toggle {
+            display: none;
+            font-size: 24px;
+            color: white;
+            background: none;
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            right: 15px;
+            top: 10px;
+        }
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        main {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        h2 {
+            color: #1e88e5;
+        }
+        footer {
+            background: #1565c0;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: #1565c0;
+            }
+            .nav-links.show {
+                display: flex;
+            }
+            nav a {
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Student Productivity Hub</h1>
+        <p>Terms of Service</p>
+    </header>
+    <nav>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="timer.html">Timer</a>
+            <a href="planner.html">Planner</a>
+            <a href="notes.html">Notes</a>
+            <a href="progress.html">Progress</a>
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+            <a href="contact.html">Contact</a>
+            <button class="dark-toggle" onclick="toggleDarkMode()">🌙</button>
+        </div>
+    </nav>
+    <main>
+        <h2>1. Introduction</h2>
+        <p>By using our Student Productivity Hub website, you agree to follow these terms and conditions...</p>
+
+        <h2>2. Purpose</h2>
+        <p>Our website is designed to help students stay organized, track progress, and improve productivity...</p>
+
+        <h2>3. Acceptable Use</h2>
+        <p>Users are expected to use this website for educational and productivity purposes only...</p>
+
+        <h2>4. Changes to Terms</h2>
+        <p>We may update these terms from time to time. Continued use means you accept the new terms...</p>
+    </main>
+    <footer>
+        &copy; 2025 Student Productivity Hub. All Rights Reserved.
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector('.nav-links').classList.toggle('show');
+        }
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
+</body>
+</html>
